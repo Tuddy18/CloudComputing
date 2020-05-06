@@ -1,0 +1,11 @@
+{application,doggos,
+             [{applications,[kernel,stdlib,elixir,logger,poison,cowboy,joken,
+                             plug,plug_cowboy]},
+              {description,"doggos"},
+              {modules,['Elixir.Doggos.Application','Elixir.Doggos.AuthPlug',
+                        'Elixir.Doggos.Dog','Elixir.Doggos.Endpoint',
+                        'Elixir.Doggos.Repository','Elixir.Doggos.Router',
+                        'Elixir.Doggos.Token']},
+              {registered,[]},
+              {vsn,"0.1.0"},
+              {mod,{'Elixir.Doggos.Application',[]}}]}.
