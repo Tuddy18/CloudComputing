@@ -21,4 +21,7 @@ be found at [https://hexdocs.pm/minimal_server](https://hexdocs.pm/minimal_serve
 
 RUN ELIXIR APP:
 mix do deps.get, deps.compile, compile
+
+
+
 mix run --no-halt
