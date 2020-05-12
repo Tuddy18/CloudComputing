@@ -3,7 +3,7 @@ defmodule Profiles.Profile do
 
   @primary_key {:ProfileId, :id, autogenerate: true}
 #  @derive {Poison.Encoder, only: [:name, :age]}
-  schema "profile" do
+  schema "Profile" do
     field :AccountId, :integer
     field :Name, :string
     field :ProfileType, :string

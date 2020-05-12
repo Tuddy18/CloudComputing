@@ -12,7 +12,7 @@ defmodule Profiles.Application do
      [
      {Plug.Adapters.Cowboy2, scheme: :http,
 
-     plug: Profiles.Endpoint, options: [port: 4000]},
+     plug: Profiles.Endpoint, options: [ip: {0,0,0,0}, port: 4000]},
        {Profiles.Repo, [],},
 #     {MyXQL, username: "root", hostname: "localhost", name: :myapp_db},
 #     worker(Profiles.DB.Manager, [[

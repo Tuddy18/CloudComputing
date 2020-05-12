@@ -4,6 +4,9 @@ use Mix.Config
 
 config :joken, default_signer: "secret2"
 
+config :profiles, Profiles.Endpoint,
+  http: [ip: {0, 0, 0, 0}, port: 4000]
+
 config :profiles,
   app_secret_key: "secret",
   jwt_validity: 3306,
@@ -13,6 +16,10 @@ config :profiles,
 
 config :profiles, Profiles.Repo,
   adapter: Ecto.Adapters.MySQL,
+#  database: "eYHL3f9DbJ",
+#  username: "eYHL3f9DbJ",
+#  password: "nWp7J02COR",
+#  hostname: "remotemysql.com"
   database: "masina_visurilor_tale",
   username: "root",
   password: "",

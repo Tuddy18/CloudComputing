@@ -17,7 +17,7 @@ defmodule Profiles.Router do
   plug(Plug.Logger, log: :debug)
 
   plug(:match)
-  plug Profiles.AuthPlug
+#  plug Profiles.AuthPlug
   plug(:dispatch)
 
 
@@ -61,12 +61,16 @@ defmodule Profiles.Router do
     end
  end
 
-  post "/" do
+  post "/insert" do
+    Logger.debug inspect(conn.body_params)
+
     {user_id, name, type} = {
-      Map.get(conn.params, "user_id", nil),
-      Map.get(conn.params, "name", nil),
-      Map.get(conn.params, "profile_type", nil)
+      Map.get(conn.body_params, "user_id", nil),
+      Map.get(conn.body_params, "name", nil),
+      Map.get(conn.body_params, "profile_type", nil)
     }
+
+    {user_id, ""} = Integer.parse(user_id)
 
     cond do
       is_nil(name) ->
@@ -81,7 +85,8 @@ defmodule Profiles.Router do
         case %Profile{
           AccountId: user_id,
           Name: name,
-          ProfileType: type
+          ProfileType: type,
+          Description: ""
         } |> Profiles.Repo.insert do
           {:ok, new_profile} ->
             conn
@@ -90,8 +95,45 @@ defmodule Profiles.Router do
           :error ->
             conn
             |> put_resp_content_type("application/json")
-            |> send_resp(500, Poison.encode!(%{"error" => "An unexpected error happened"}))
+            |> send_resp(507, Poison.encode!(%{"error" => "An unexpected error happened"}))
 
+        end
+    end
+  end
+
+  put "/update" do
+    Logger.debug inspect(conn.body_params)
+
+    {id, name, type, description} = {
+      Map.get(conn.body_params, "id", nil),
+      Map.get(conn.body_params, "name", nil),
+      Map.get(conn.body_params, "profile_type", nil),
+      Map.get(conn.body_params, "description", nil)
+    }
+
+    {id, ""} = Integer.parse(id)
+
+    cond do
+      is_nil(name) ->
+        conn
+        |> put_status(400)
+        |> assign(:jsonapi, %{"error" => "'name' field must be provided"})
+      is_nil(id) ->
+        conn
+        |> put_status(400)
+        |> assign(:jsonapi, %{"error" => "'userid' field must be provided"})
+      true ->
+        case Profiles.Repo.get(Profiles.Profile, id)
+        |> Ecto.Changeset.change(%{Name: name, Description: description, ProfileType: type})
+        |> Profiles.Repo.update() do
+          {:ok, new_profile} ->
+            conn
+            |> put_resp_content_type("application/json")
+            |> send_resp(201, Poison.encode!(%{:data => new_profile}))
+          :error ->
+            conn
+            |> put_resp_content_type("application/json")
+            |> send_resp(507, Poison.encode!(%{"error" => "An unexpected error happened"}))
         end
     end
   end
