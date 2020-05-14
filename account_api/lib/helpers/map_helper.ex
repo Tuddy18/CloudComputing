@@ -1,4 +1,4 @@
-defmodule Doggos.Helpers.MapHelper do
+defmodule Accounts.Helpers.MapHelper do
   @doc "
   Takes String keys in a Map and convers them to Atoms.
   "
