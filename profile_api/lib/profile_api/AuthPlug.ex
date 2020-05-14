@@ -1,6 +1,5 @@
 defmodule Profiles.AuthPlug do
   import Plug.Conn
-
   require Logger
 
   def init(opts), do: opts

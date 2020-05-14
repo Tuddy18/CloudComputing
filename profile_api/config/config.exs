@@ -16,14 +16,14 @@ config :profiles,
 
 config :profiles, Profiles.Repo,
   adapter: Ecto.Adapters.MySQL,
-#  database: "eYHL3f9DbJ",
-#  username: "eYHL3f9DbJ",
-#  password: "nWp7J02COR",
-#  hostname: "remotemysql.com"
-  database: "masina_visurilor_tale",
-  username: "root",
-  password: "",
-  hostname: "localhost"
+  database: "52LURLndjW",
+  username: "52LURLndjW",
+  password: "HGgKkQOQt7",
+  hostname: "remotemysql.com"
+#  database: "masina_visurilor_tale",
+#  username: "root",
+#  password: "",
+#  hostname: "localhost"
 
 config :profiles, ecto_repos: [Profiles.Repo]
 

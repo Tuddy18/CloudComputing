@@ -40,8 +40,34 @@ defmodule Profiles.Router do
   end
 
   get "/get-all" do
-    name = Map.get(conn.params, "name", nil)
     profiles =  Profiles.Repo.all(from d in Profiles.Profile)
+
+    conn
+    |> put_resp_content_type("application/json")
+    |> send_resp(200, Poison.encode!(profiles))
+  end
+
+  post "/get-recommendations-by-id" do
+    profile_id = Map.get(conn.body_params, "current_profile_id", nil)
+    filter_ids = Map.get(conn.body_params, "filter_ids", nil)
+    Logger.debug inspect(conn.body_params)
+
+
+    profile = Profiles.Repo.get(Profiles.Profile, profile_id)
+    Logger.debug inspect(profile)
+    Logger.debug inspect(profile."ProfileType")
+    Logger.debug inspect(profile."ProfileType" == "car")
+
+    match_type =
+      if profile."ProfileType" == "car" do
+          "driver"
+      else
+          "car"
+    end
+    Logger.debug inspect(match_type)
+
+
+    profiles =  Profiles.Repo.all(from d in Profiles.Profile, where: d."ProfileType" == ^match_type and d."ProfileId" not in ^filter_ids)
 
     conn
     |> put_resp_content_type("application/json")
@@ -137,5 +163,7 @@ defmodule Profiles.Router do
         end
     end
   end
+
+
 
 end

@@ -23,6 +23,8 @@ defmodule Profiles.Endpoint do
       Map.get(conn.params, "id", nil)
     }
 
+    Logger.debug (username)
+
     flag = case username == "admin" and password == "admin"  do
        true ->
         {:ok, auth_service} = Profiles.Auth.start_link
@@ -60,7 +62,7 @@ defmodule Profiles.Endpoint do
   end
 
   forward("/profile", to: Profiles.Router)
-  forward("/user", to: Profiles.UserRouter)
+#  forward("/user", to: Profiles.UserRouter)
 
   match _ do
     send_resp(conn, 404, "Page not found!")
