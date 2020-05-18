@@ -18,6 +18,7 @@ defmodule Profiles.Router do
 
   plug(:match)
 #  plug Profiles.AuthPlug
+    plug CORSPlug, origin: "*"
   plug(:dispatch)
 
 
@@ -96,8 +97,6 @@ defmodule Profiles.Router do
       Map.get(conn.body_params, "profile_type", nil)
     }
 
-    {user_id, ""} = Integer.parse(user_id)
-
     cond do
       is_nil(name) ->
         conn
@@ -163,6 +162,10 @@ defmodule Profiles.Router do
         end
     end
   end
+
+  forward("/photo", to: Profiles.PhotoRouter)
+  forward("/feature", to: Profiles.FeatureRouter)
+  forward("/preference", to: Profiles.PreferenceRouter)
 
 
 

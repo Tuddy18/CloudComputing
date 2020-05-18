@@ -29,6 +29,7 @@ defmodule Accounts.MixProject do
       {:timex, "~> 3.0"},
       {:jsonapi, "~> 0.3.0"},
       {:joken, "~> 1.5.0"},
+      {:cors_plug, "~> 1.5"},
 #      {:myxql, "~> 0.3.0"},
     {:ecto, "~> 2.0"},
     {:mariaex, "~> 0.7"}

@@ -10,6 +10,7 @@ defmodule Accounts.Endpoint do
   plug(:match)
 
   @skip_token_verification %{jwt_skip: true}
+  plug CORSPlug, origin: "*"
 
   plug(Plug.Parsers,
     parsers: [:json],

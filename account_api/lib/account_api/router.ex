@@ -12,6 +12,7 @@ defmodule Accounts.Router do
 
   plug(:match)
   plug Accounts.AuthPlug
+  plug CORSPlug, origin: "*"
   plug(:dispatch)
 
   post "/login", private: @skip_token_verification do
@@ -60,6 +61,25 @@ defmodule Accounts.Router do
         |> send_resp(400, Poison.encode!(%{:message => "token was not deleted"}))
     end
   end
+
+  post "/validate-token", private: @skip_token_verification do
+    token = Map.get(conn.params, "token", nil)
+    Logger.debug inspect(token)
+
+    {:ok, service} = Accounts.Auth.start_link
+    case Accounts.Auth.validate_token(service, token) do
+          {:ok, _} ->
+            conn
+            |> put_resp_content_type("application/json")
+            |> send_resp(200, Poison.encode!(%{:message => "token is valid"}))
+          {:error, _} ->
+            conn
+            |> put_resp_content_type("application/json")
+            |> send_resp(400, Poison.encode!(%{:message => "token is invalid"}))
+        end
+
+  end
+
 
   get "/get-all" do
     accounts =  Accounts.Repo.all(from d in Accounts.Account)
