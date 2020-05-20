@@ -12,7 +12,8 @@ config :profiles,
   jwt_validity: 3306,
   api_host: "localhost",
   api_version: 2,
-  api_prefix: "http"
+  api_prefix: "http",
+  account_service_url: "https://elixir-account-service.azurewebsites.net"
 
 config :profiles, Profiles.Repo,
   adapter: Ecto.Adapters.MySQL,

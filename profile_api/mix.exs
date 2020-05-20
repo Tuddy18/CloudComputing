@@ -30,6 +30,7 @@ defmodule Profiles.MixProject do
       {:jsonapi, "~> 0.3.0"},
       {:joken, "~> 2.2.0"},
       {:cors_plug, "~> 1.5"},
+      {:httpotion, "~> 3.1.0"},
 #      {:myxql, "~> 0.3.0"},
     {:ecto, "~> 2.0"},
     {:mariaex, "~> 0.7"}
