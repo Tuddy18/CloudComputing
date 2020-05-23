@@ -20,6 +20,25 @@ defmodule Matches.Router do
 #  plug Profiles.AuthPlug
   plug(:dispatch)
 
+  post "/get-matches-by-profile-id" do
+    Logger.debug inspect(conn.body_params)
+
+    {current_profile_id} = {
+      Map.get(conn.body_params, "current_profile_id", nil)
+    }
+
+    matches = Matches.Repo.all(
+      from d in Matches.Match,
+      where: (d."FirstProfileId" == ^current_profile_id
+              or d."SecondProfileId" == ^current_profile_id)
+              and d."FirstProfileLike" == true and d."SecondProfileLike" == true)
+
+    conn
+    |> put_resp_content_type("application/json")
+    |> send_resp(200, Poison.encode!(matches))
+
+  end
+
   post "/get-match" do
     Logger.debug inspect(conn.body_params)
 
