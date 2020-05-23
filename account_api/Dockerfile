@@ -4,7 +4,6 @@ COPY . .
 
 RUN export MIX_ENV=prod 
 RUN rm -Rf _build
-RUN mix deps.compile gettext
 RUN mix do deps.get, deps.compile, compile
 #RUN mix do deps.get, deps.compile, compile
 
