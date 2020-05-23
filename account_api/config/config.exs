@@ -4,29 +4,28 @@ use Mix.Config
 
 config :joken, default_signer: "secret2"
 
-config :profiles, Profiles.Endpoint,
-  http: [ip: {0, 0, 0, 0}, port: 4000]
+config :accounts, Accounts.Endpoint,
+  http: [ip: {0, 0, 0, 0}, port: 4001]
 
-config :profiles,
+config :accounts,
   app_secret_key: "secret",
-  jwt_validity: 3306,
+  jwt_validity: 2,
   api_host: "localhost",
   api_version: 2,
-  api_prefix: "http",
-  account_service_url: "https://elixir-account-service.azurewebsites.net"
+  api_prefix: "http"
 
-config :profiles, Profiles.Repo,
+config :accounts, Accounts.Repo,
   adapter: Ecto.Adapters.MySQL,
-  database: "52LURLndjW",
-  username: "52LURLndjW",
-  password: "HGgKkQOQt7",
+  database: "f9APZ5YuzY",
+  username: "f9APZ5YuzY",
+  password: "Awg39i9F7r",
   hostname: "remotemysql.com"
 #  database: "masina_visurilor_tale",
 #  username: "root",
 #  password: "",
 #  hostname: "localhost"
 
-config :profiles, ecto_repos: [Profiles.Repo]
+config :accounts, ecto_repos: [Accounts.Repo]
 
 
 # This configuration is loaded before any dependency and is restricted

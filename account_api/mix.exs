@@ -1,9 +1,9 @@
-defmodule Profiles.MixProject do
+defmodule Accounts.MixProject do
   use Mix.Project
 
   def project do
     [
-      app: :profiles,
+      app: :accounts,
       version: "0.1.0",
       elixir: "~> 1.8",
       start_permanent: Mix.env() == :prod,
@@ -15,7 +15,7 @@ defmodule Profiles.MixProject do
   def application do
     [
       extra_applications: [:logger],
-      mod: {Profiles.Application, []}
+      mod: {Accounts.Application, []}
     ]
   end
 
@@ -28,9 +28,8 @@ defmodule Profiles.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:timex, "~> 3.0"},
       {:jsonapi, "~> 0.3.0"},
-      {:joken, "~> 2.2.0"},
+      {:joken, "~> 1.5.0"},
       {:cors_plug, "~> 1.5"},
-      {:httpotion, "~> 3.1.0"},
 #      {:myxql, "~> 0.3.0"},
     {:ecto, "~> 2.0"},
     {:mariaex, "~> 0.7"}
